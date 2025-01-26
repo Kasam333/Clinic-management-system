@@ -58,40 +58,68 @@ This is a **Django-based Clinic Management System** designed to streamline clini
 - **Bootstrap**: For responsive and modern UI design.
 
 ---
+# 📸 Screenshots
 
-## 📸 Screenshots
-
-### Index Page
-<img width="452" alt="Screenshot 2025-01-26 232103" src="https://github.com/user-attachments/assets/a617a5d8-25bf-4c5a-906f-1ed3ca820b77" />
-
-### Login Page
-<img width="452" alt="Screenshot 2025-01-26 232223" src="https://github.com/user-attachments/assets/010f3a3a-5206-4fa6-a83e-f2464093c9ed" />
-<img width="452" alt="Screenshot 2025-01-26 232223" src="https://github.com/user-attachments/assets/c1d55b05-e5d1-4daf-9140-18c322acff0b" />
-
-### Dashboard
-<img width="452" alt="Screenshot 2025-01-26 232223" src="https://github.com/user-attachments/assets/677a0eda-594b-4bf7-8e1f-3528e9f53f59" />
-
-### Quick Add Patient
-<img width="521" alt="sc3" src="https://github.com/user-attachments/assets/26fd6d30-924c-4b28-9196-21f119a8c282" />"
-
-### Patient Management
-<img width="675" alt="sc4" src="https://github.com/user-attachments/assets/c864fc2f-1819-4398-9602-44428534eacf" />"
-<img width="514" alt="sc5" src="https://github.com/user-attachments/assets/954cd9d5-14bb-40a0-ad74-e87e3a28155c" />"
-<img width="510" alt="sc6" src="https://github.com/user-attachments/assets/f6eb4a75-d955-4502-9112-97acad380865" />"
-<img width="510" alt="sc7" src="https://github.com/user-attachments/assets/1e871bef-869a-4c71-9c72-066cac491ad2" />"
-
-### Data Analysis Charts - Total Patients
-<img width="748" alt="sc8" src="https://github.com/user-attachments/assets/3bf95a12-9492-463f-aaf8-f516ebf7298a" />
-<img width="753" alt="sc9" src="https://github.com/user-attachments/assets/8ec807d8-bc43-4ea8-a816-24b8177cc563" />
-<img width="758" alt="sc10" src="https://github.com/user-attachments/assets/15d45a07-8685-4bee-9dbd-25b8f5d515a5" />
-
-### Data Analysis Charts - Total Amount Collection
-<img width="752" alt="sc11" src="https://github.com/user-attachments/assets/404927f7-b400-4cb8-95e3-6a0314218155" />
-
-### Reset Password
-<img width="755" alt="sc12" src="https://github.com/user-attachments/assets/bef629b6-c414-4b08-a3bb-5b2aa6eb89cc" />
+## Index Page
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/a617a5d8-25bf-4c5a-906f-1ed3ca820b77" alt="Index Page" width="400" />
+</div>
 
 ---
+
+## Login Page
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/010f3a3a-5206-4fa6-a83e-f2464093c9ed" alt="Login Page 1" width="400" />
+  <img src="https://github.com/user-attachments/assets/c1d55b05-e5d1-4daf-9140-18c322acff0b" alt="Login Page 2" width="400" />
+</div>
+
+---
+
+## Dashboard
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/677a0eda-594b-4bf7-8e1f-3528e9f53f59" alt="Dashboard" width="400" />
+</div>
+
+---
+
+## Quick Add Patient
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/26fd6d30-924c-4b28-9196-21f119a8c282" alt="Quick Add Patient" width="450" />
+</div>
+
+---
+
+## Patient Management
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/c864fc2f-1819-4398-9602-44428534eacf" alt="Patient Management 1" width="450" />
+  <img src="https://github.com/user-attachments/assets/954cd9d5-14bb-40a0-ad74-e87e3a28155c" alt="Patient Management 2" width="450" />
+  <img src="https://github.com/user-attachments/assets/f6eb4a75-d955-4502-9112-97acad380865" alt="Patient Management 3" width="450" />
+  <img src="https://github.com/user-attachments/assets/1e871bef-869a-4c71-9c72-066cac491ad2" alt="Patient Management 4" width="450" />
+</div>
+
+---
+
+## Data Analysis Charts - Total Patients
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/3bf95a12-9492-463f-aaf8-f516ebf7298a" alt="Total Patients 1" width="500" />
+  <img src="https://github.com/user-attachments/assets/8ec807d8-bc43-4ea8-a816-24b8177cc563" alt="Total Patients 2" width="500" />
+  <img src="https://github.com/user-attachments/assets/15d45a07-8685-4bee-9dbd-25b8f5d515a5" alt="Total Patients 3" width="500" />
+</div>
+
+---
+
+## Data Analysis Charts - Total Amount Collection
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/404927f7-b400-4cb8-95e3-6a0314218155" alt="Total Amount Collection" width="500" />
+</div>
+
+---
+
+## Reset Password
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/bef629b6-c414-4b08-a3bb-5b2aa6eb89cc" alt="Reset Password" width="500" />
+</div>
+
 
 ## 🛠️ Installation
 
