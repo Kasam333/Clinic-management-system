@@ -1,0 +1,482 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f3f8fb;
+        color: #333;
+    }
+
+    .hero {
+        background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+        padding: 60px 0;
+        text-align: center;
+        color: #fff;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
+
+    .hero .btn {
+        background-color: #000000;
+        color: #fff;
+        padding: 12px 30px;
+        font-size: 1rem;
+        border-radius: 50px;
+        transition: all 0.3s;
+    }
+
+    .hero .btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-3px);
+    }
+
+   .popup {
+    z-index: 100;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(211, 211, 211, 0), rgba(0, 0, 0, 0));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.popup-content {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.16);
+    color: #000000;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    animation: popupSlideIn 0.6s ease;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    color: #000000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close:hover {
+    transform: scale(1.2);
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    background: none;
+    border: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.tab-btn.active {
+    color: #ff6f61;
+    font-size: 18px;
+}
+
+.tab-btn:before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: #ff6f61;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active:before {
+    width: 50%;
+    left: 25%;
+}
+
+.tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tab {
+    display: none;
+    animation: fadeIn 0.6s ease;
+}
+
+.tab.active {
+    display: block;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+form input {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input:focus {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(255, 111, 97, 0.4);
+}
+
+form button {
+    padding: 15px;
+    background: linear-gradient(135deg, #3b5bdb, #87aaff);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(255, 111, 97, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 111, 97, 0.7);
+}
+
+@keyframes popupSlideIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+    .features-section {
+        background-color: #fdfdfd;
+        padding: 60px 0;
+    }
+
+    .features-section h2 {
+        font-size: 2.8rem;
+        margin-bottom: 40px;
+        text-align: center;
+        color: #000000;
+    }
+
+    .feature-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 50px;
+    }
+
+    .feature-image {
+        flex: 1;
+        max-width: 48%;
+        padding: 15px;
+    }
+
+    .feature-image img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-description {
+        flex: 1;
+        max-width: 48%;
+        padding: 15px;
+    }
+
+    .feature-description h3 {
+        font-size: 2rem;
+        color: #5bb1f9;
+        margin-bottom: 15px;
+    }
+
+    .feature-description p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    footer {
+        background: linear-gradient(135deg, #3b5bdb, #87aaff);
+        padding: 40px 0;
+        color: #fff;
+        border-top: 3px solidrgb(255, 255, 255);
+        text-align: center;
+    }
+
+    footer a {
+        color:rgb(0, 63, 114);
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+
+    .carousel .carousel-control-prev-icon,
+    .carousel .carousel-control-next-icon {
+        filter: invert(100%);
+    }
+
+    .carousel button {
+        background-color: rgb(255, 255, 255);
+        border: none;
+    }
+
+    .carousel button:focus {
+        outline: none;
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="font-size: 24px; color: red; padding: 10dp; background-color: #fff; border-radius: 10px;">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        <h1>Online Clinic Management System</h1>
+        <p>Effortlessly manage your clinic and deliver superior patient care.</p>
+        <a href="#" class="btn" id="openPopup">Explore Features</a>
+    </div>
+</section>
+
+<!-- Popup Container -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span id="closePopup" class="close">&times;</span>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="login">Login</button>
+            <button class="tab-btn" data-tab="register">Register</button>
+        </div>
+        <div class="tab-content">
+            <!-- Login Form -->
+            <div id="login" class="tab active">
+                <h3>Login</h3>
+                <form action="{% url 'doctor-login' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="username" name="username" placeholder="Username" required />
+                    <input type="password" name="password" placeholder="Password" required />
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+            <!-- Register Form -->
+            <div id="register" class="tab">
+                <h3>Register</h3>
+                <form action="{% url 'doctor-register' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" name="username" placeholder="Username" required />
+                    <input type="email" name="email" placeholder="Email" required />
+                    <input type="password" name="password" placeholder="Password" required />
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <h2>Key Features</h2>
+
+        <!-- Feature 1 -->
+        <div class="feature-row">
+            <div class="feature-image">
+                <div id="carouselFeature1" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/static/images/Amount Collection Reports1.png" class="d-block w-100"
+                                alt="Overview">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/static/images/Amount Collection Reports2.png" class="d-block w-100"
+                                alt="Appointments">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/static/images/Amount Collection Reports3.png" class="d-block w-100"
+                                alt="Records">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselFeature1"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselFeature1"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="feature-description">
+                <h3>Amount Collection Reports</h3>
+                <p>Visualize your clinic's financial performance with comprehensive collection reports, ensuring clear
+                    insights for smarter decisions.</p>
+            </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-row">
+            <div class="feature-description">
+                <h3>Patients Reports</h3>
+                <p>Access detailed patient statistics, including treatment history, visit frequency, and progress charts
+                    for a streamlined care experience.</p>
+            </div>
+            <div class="feature-image">
+                <div id="carouselFeature2" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/static/images/Total Patients Reports1.png" class="d-block w-100"
+                                alt="Patient Overview">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/static/images/Total Patients Reports2.png" class="d-block w-100"
+                                alt="Medical History">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/static/images/Total Patients Reports3.png" class="d-block w-100"
+                                alt="Treatment Plans">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselFeature2"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselFeature2"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-row">
+            <div class="feature-image">
+                <img src="/static/images/dashboard2.png" alt="Dashboard Insights">
+            </div>
+            <div class="feature-description">
+                <h3>Intuitive Dashboard</h3>
+                <p>Centralized access to key metrics, patient records, and appointment schedules to boost your
+                    operational efficiency.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Online Clinic Management System. All rights reserved.</p>
+        <div>
+            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Us</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const popup = document.getElementById("popup");
+        const openPopup = document.getElementById("openPopup");
+        const closePopup = document.getElementById("closePopup");
+        const tabButtons = document.querySelectorAll(".tab-btn");
+        const tabs = document.querySelectorAll(".tab");
+
+        // Show popup
+        openPopup.addEventListener("click", () => {
+            popup.style.display = "flex";
+        });
+
+        // Hide popup
+        closePopup.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+
+        // Toggle between tabs
+        tabButtons.forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                // Remove active class from all buttons and tabs
+                tabButtons.forEach((button) => button.classList.remove("active"));
+                tabs.forEach((tab) => tab.classList.remove("active"));
+
+                // Add active class to clicked button and corresponding tab
+                e.target.classList.add("active");
+                document.getElementById(e.target.dataset.tab).classList.add("active");
+            });
+        });
+
+        // Close popup when clicking outside of the content
+        popup.addEventListener("click", (e) => {
+            if (e.target === popup) {
+                popup.style.display = "none";
+            }
+        });
+    });
+
+</script>
+{% endblock content %}

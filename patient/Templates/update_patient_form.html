@@ -1,0 +1,46 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+{% block title %}
+Update Patient
+{% endblock title %}
+
+<div class="card">  
+    <h4 class="card-header">Update Patient
+        <a href="{% url 'all-patients' %}" class="float-end btn btn-sm btn-success">
+                </i> All Patients
+            </a>
+    </h4>
+    
+    <div class="card-body">
+        {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+        <form action="" method="post">
+        {% csrf_token %}
+        <table class="table table-bordered">
+            {% for field in form %}
+            <tr>
+                <th>
+                    {{field.label_tag}}
+                    {% if field.field.required %}
+                    <span class="text-danger">*</span>
+                    {% endif %}
+                </th>
+                <td>
+                    {{field}}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2">
+                    <input type="submit" class="btn btn-success" value="save"/>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</div>
+{% endblock content %}

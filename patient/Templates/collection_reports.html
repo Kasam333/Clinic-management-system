@@ -1,0 +1,255 @@
+{% extends "dashboard.html" %}
+
+{% block title %}
+Collection Report
+{% endblock title %}
+
+
+
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<div class="card">
+    <div class="card-header">Amount Collection Reports</div>
+    <div class="card-body">
+        <div class="row align-items-center">
+            <!-- Chart Type Dropdown -->
+            <div class="col-auto">
+            <form method="get" action="">
+                <div class="d-flex align-items-center">
+                    <select name="chart_type" class="form-control me-2 select-chart-type">
+                        <option value="daily" {% if request.GET.chart_type == 'daily' or not request.GET.chart_type %} selected {% endif %}>Daily</option>
+                        <option value="monthly" {% if request.GET.chart_type == 'monthly' %} selected {% endif %}>Monthly</option>
+                        <option value="yearly" {% if request.GET.chart_type == 'yearly' %} selected {% endif %}>Yearly</option>
+                    </select>
+                    <button type="submit" class="btn btn-secondary">Change</button>
+                </div>
+            </form>
+        </div>
+
+
+            <!-- Year Dropdown -->
+            {% if request.GET.chart_type and request.GET.chart_type != 'yearly' %}
+            <div class="col-auto">
+                <form action="">
+                    <input type="hidden" name="chart_type" value="{% if request.GET.chart_type %}{{ request.GET.chart_type }}{% else %}daily{% endif %}">
+                    <div class="d-flex justify-content-center">
+
+                    <!-- For Year Selection -->
+                    <select name="year" class="form-control me-2">
+                        <option>--- Select Year ---</option>
+                        {% for year in years %}
+                            <option value="{{year.visit_date__year}}" {% if currentYear == year.visit_date__year %} selected {% endif %}>{{ year.visit_date__year }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <!-- For Month Selection -->
+                    {% if request.GET.chart_type and request.GET.chart_type == 'daily' %}
+                    <select name="month" class="form-control me-3">
+                        <option>--- Select Month ---</option>
+                        {% for month in monthName %}
+                            <option value="{{month.id}}" {% if currentMonth == month.id %} selected {% endif %}>{{ month.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+
+            <!-- Charts -->
+            <div class="col-12">
+                {% if request.GET.chart_type == 'daily' %}
+                    <div id="chartDaily"></div>
+                {% elif request.GET.chart_type == 'monthly' %}
+                    <div id="chartMonthly"></div>
+                {% elif request.GET.chart_type == 'yearly' %}
+                    <div id="chartYearly"></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Parse data from backend
+    var dailyChartData = JSON.parse('{{ dailyChart | safe }}');
+    var monthlyChartData = JSON.parse('{{ monthlyChart | safe }}');
+    var yearlyChartData = JSON.parse('{{ yearlyChart | safe }}');
+
+    // Enhanced Daily Chart Options
+    var dailyOptions = {
+        series: [{
+            name: "Amount",
+            data: dailyChartData.dailyChartValues
+        }],
+        chart: {
+            height: 350,
+            type: 'line',
+            zoom: { enabled: false },
+            toolbar: { show: true }
+        },
+        colors: ['#00E396'], // Custom color
+        stroke: {
+            curve: 'smooth', // Smooth lines
+            width: 2
+        },
+        markers: {
+            size: 5,
+            colors: ['#FFA41B'], // Marker colors
+            hover: { size: 7 }
+        },
+        xaxis: {
+            categories: dailyChartData.dailyChartLabels,
+            title: {
+                text: 'Daily Chart',
+                style: { fontSize: '14px', fontWeight: 'bold' }
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Total Collection',
+                style: { fontSize: '14px', fontWeight: 'bold' }
+            },
+            labels: { formatter: val => Math.round(val) }
+        },
+        grid: {
+            borderColor: '#e7e7e7',
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // alternating row colors
+                opacity: 0.5
+            }
+        },
+        tooltip: {
+            enabled: true,
+            theme: 'dark', // Make tooltip more attractive
+            x: { format: 'dd MMM yyyy' },
+            y: { formatter: val => val + " Rs" }
+        }
+    };
+
+    var dailyChart = new ApexCharts(document.querySelector("#chartDaily"), dailyOptions);
+    dailyChart.render();
+
+        // Enhanced Monthly Chart Options
+        var monthlyOptions = {
+            series: [{
+                name: "Amount",
+                data: monthlyChartData.monthlyChartValues
+            }],
+            chart: {
+                height: 350,
+                type: 'bar',
+                zoom: { enabled: false },
+                toolbar: { show: true }
+            },
+            colors: ['#008FFB'], // Custom color
+            plotOptions: {
+                bar: {
+                    borderRadius: 5, // Rounded bars
+                    horizontal: false,
+                    columnWidth: '50%'
+                }
+            },
+            dataLabels: {
+                enabled: true, // Show values on bars
+                style: {
+                    colors: ['#fff'] // White text on bars
+                }
+            },
+            xaxis: {
+                categories: monthlyChartData.monthlyChartLabels,
+                title: {
+                    text: 'Monthly Chart',
+                    style: { fontSize: '14px', fontWeight: 'bold' }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Total Collection',
+                    style: { fontSize: '14px', fontWeight: 'bold' }
+                },
+                labels: { formatter: val => Math.round(val) }
+            },
+            tooltip: {
+                enabled: true,
+                theme: 'dark',
+                y: { formatter: val => val + " Rs" }
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: {
+                    colors: ['#f3f3f3', 'transparent'],
+                    opacity: 0.5
+                }
+            }
+        };
+
+        var monthlyChart = new ApexCharts(document.querySelector("#chartMonthly"), monthlyOptions);
+        monthlyChart.render();
+
+        // Enhanced Monthly Chart Options
+        var yearlyOptions = {
+            series: [{
+                name: "Amount",
+                data: yearlyChartData.yearlyChartValues
+            }],
+            chart: {
+                height: 350,
+                type: 'bar',
+                zoom: { enabled: false },
+                toolbar: { show: true }
+            },
+            colors: ['#008FFB'], // Custom color
+            plotOptions: {
+                bar: {
+                    borderRadius: 5, // Rounded bars
+                    horizontal: false,
+                    columnWidth: '50%'
+                }
+            },
+            dataLabels: {
+                enabled: true, // Show values on bars
+                style: {
+                    colors: ['#fff'] // White text on bars
+                }
+            },
+            xaxis: {
+                categories: yearlyChartData.yearlyChartLabels,
+                title: {
+                    text: 'Yearly Chart',
+                    style: { fontSize: '14px', fontWeight: 'bold' }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Total Collection',
+                    style: { fontSize: '14px', fontWeight: 'bold' }
+                },
+                labels: { formatter: val => Math.round(val) }
+            },
+            tooltip: {
+                enabled: true,
+                theme: 'dark',
+                y: { formatter: val => val + " Rs" }
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: {
+                    colors: ['#f3f3f3', 'transparent'],
+                    opacity: 0.5
+                }
+            }
+        };
+
+        var yearlyChart = new ApexCharts(document.querySelector("#chartYearly"), yearlyOptions);
+        yearlyChart.render();
+    });
+</script>
+{% endblock content %}

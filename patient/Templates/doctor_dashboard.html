@@ -1,0 +1,43 @@
+{% extends "dashboard.html" %}
+
+{% block title %}
+Doctor Dashboard
+{% endblock title %}
+
+{% block content %}
+<style>
+    .card:hover {
+    transform: translateY(-10px);
+    transition: transform 0.3s ease-in-out;
+}
+</style>
+<div class="row">
+    <!-- Total Patients Card -->
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-lg border-0 rounded-lg" style="background: linear-gradient(135deg, #3b5bdb, #87aaff);">
+            <div class="card-body text-center text-white">
+                <h5 class="card-title" style="font-size: 1.5rem;">Total Patients</h5>
+                <hr style="border: 1px solid #fff;">
+                <h4 class="mb-0" style="font-size: 2rem; font-weight: bold;">
+                    <a href="{% url 'all-patients' %}" class="text-white text-decoration-none">{{data.count}}</a>
+                </h4>
+                <p class="mt-2" style="font-size: 1rem;">Click to view all patients</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Collection Card -->
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-lg border-0 rounded-lg" style="background: linear-gradient(135deg, #0b7a75, #43c6a0);">
+            <div class="card-body text-center text-white">
+                <h5 class="card-title" style="font-size: 1.5rem;">Total Collection</h5>
+                <hr style="border: 1px solid #fff;">
+                <h4 class="mb-0" style="font-size: 2rem; font-weight: bold;">
+                    <a href="{% url 'collection-report' %}?chart_type=daily" class="text-white text-decoration-none">{{total_amount.total}} ₹</a>
+                </h4>
+                <p class="mt-2" style="font-size: 1rem;">Click to see detailed collection report</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
